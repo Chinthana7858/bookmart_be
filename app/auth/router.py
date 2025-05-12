@@ -28,7 +28,7 @@ def login(user: UserLogin, response: Response, db: Session = Depends(get_db)):
         value=token_data["access_token"],
         httponly=True,
         secure=True,
-        samesite="Lax",
+        samesite="None",
         max_age=ACCESS_TOKEN_EXPIRE_MINUTES * 60
     )
     return token_data
