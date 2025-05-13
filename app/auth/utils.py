@@ -1,3 +1,4 @@
+from dotenv import load_dotenv
 from passlib.context import CryptContext
 from jose import jwt
 from datetime import datetime, timedelta
@@ -9,9 +10,11 @@ from app.db import get_db
 from sqlalchemy.orm import Session
 import os
 
-SECRET_KEY = "cea0a0f2df29e617f113ac7d24a0670405cce2be738524b60e0c37b6a0769ca82673545667e5aaed24b699ca3724ee68b9243e0ec472e9e87d62cdbd288948881901b0c07dddcf27db64332c38e4fedc2296e5f9508a2e2858c005cd58e18a3cdd1ba74a27a6e59769a159c0f4ee94dd29843667428a99fb81c9a384ad25655fb47ba1362552cd957fbd44ee818ee8a29840baa637f96cc6e2dd3ce79f2eacc35fa7f8840517b72fe25e55381fb66ad93464c7031021728c2ffbee98959f0f4b7b0a12d338ee5b4e630a5dc0d3b972012c3ce1008f119bae9803f3617fb31d88bcd0b0b1dab3286ec0496457aa255c3bfab6fc834fdc5cb5bc96cc9ffbdfde29"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 600
+load_dotenv()  
+
+SECRET_KEY = os.getenv("JWT_SECRET_KEY")
+ALGORITHM = os.getenv("JWT_ALGORITHM", "HS256")
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("JWT_EXPIRATION_MINUTES", "600"))
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")

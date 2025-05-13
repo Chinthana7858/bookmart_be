@@ -6,7 +6,6 @@ class UserActivity(Base):
     __tablename__ = "user_activities"
     id = Column(Integer, primary_key=True, index=True)
     session_id = Column(String(100))
-    user_id = Column(Integer, ForeignKey("users.id"))
     product_id = Column(Integer, ForeignKey("products.id"))
     action = Column(String(100))
     timestamp = Column(DateTime, default=datetime.utcnow)
