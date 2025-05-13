@@ -1,3 +1,4 @@
+from typing import Optional
 from fastapi import APIRouter, Cookie, Depends
 from sqlalchemy.orm import Session
 from app.db import get_db
@@ -10,9 +11,11 @@ router = APIRouter(prefix="/activities", tags=["UserActivity"])
 @router.post("/", response_model=UserActivityResponse)
 def create_activity(
     data: UserActivityCreate,
-    guest_session_id: str = Cookie(...),    
+    guest_session_id: Optional[str] = Cookie(None),
     db: Session = Depends(get_db)
 ):
+    print("Received data:", data)
+    print("Session ID from cookie:", guest_session_id)
     return user_activity_service.log_user_activity(db, data, guest_session_id)
 
 
