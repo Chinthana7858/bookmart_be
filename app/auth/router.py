@@ -35,8 +35,20 @@ def login(user: UserLogin, response: Response, db: Session = Depends(get_db)):
 
 @router.post("/logout")
 def logout(response: Response):
-    response.delete_cookie("jwt", path="/")
-    response.delete_cookie("guest_session_id", path="/")
+    response.delete_cookie(
+        key="jwt",
+        path="/",
+        httponly=True,
+        secure=True,
+        samesite="None"
+    )
+    response.delete_cookie(
+        key="guest_session_id",
+        path="/",
+        httponly=True,
+        secure=True,
+        samesite="None"
+    )
     return {"message": "Logged out"}
 
 @router.get("/authenticate")
