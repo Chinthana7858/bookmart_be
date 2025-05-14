@@ -1,4 +1,5 @@
-from fastapi import APIRouter, Depends
+from typing import List
+from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
 from app.auth.utils import require_admin
 from app.db import get_db
