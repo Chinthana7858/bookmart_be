@@ -16,6 +16,15 @@ def create_new_order(order: OrderCreate, db: Session = Depends(get_db)):
 def get_all_orders(db: Session = Depends(get_db),current_admin=Depends(require_admin)):
     return fetch_all_orders(db)
 
+@router.get("/paginated", response_model=PaginatedOrders)
+def get_all_orders(
+    skip: int = Query(0, ge=0),
+    limit: int = Query(15, gt=0),
+    db: Session = Depends(get_db),
+    current_admin=Depends(require_admin)
+):  
+    return fetch_all_orders_paginated(db, skip=skip, limit=limit)
+
 @router.post("/items/")
 def add_order_item(item: OrderItemCreate, db: Session = Depends(get_db)):
     return create_order_item(item, db)
