@@ -19,5 +19,5 @@ def run_coengagement_job():
 
 def start_scheduler():
     scheduler = BackgroundScheduler()
-    scheduler.add_job(run_coengagement_job, 'interval', minutes=0.1) 
+    scheduler.add_job(run_coengagement_job, 'interval', minutes=100) 
     scheduler.start()
